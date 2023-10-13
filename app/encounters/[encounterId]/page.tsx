@@ -14,7 +14,7 @@ export default async function Encounter({ params } : { params: { encounterId: st
         <main>
             <h1>{encounter.name}</h1>
             {encounter.monsters.map((monsterSlug: string) => (
-                <p>
+                <p key={monsterSlug}>
                     {monsterSlug}
                 </p>
             ))}
