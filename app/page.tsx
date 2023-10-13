@@ -10,7 +10,6 @@ async function getEncounters() {
 }
 
 export default async function Home() {
-
   const encounters = await getEncounters();
 
   return (
