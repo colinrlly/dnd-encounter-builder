@@ -5,8 +5,7 @@ import Link from 'next/link';
 async function getEncounters() {
   const encountersRef = collection(db, "encounters");
   const q = query(encountersRef);
-  const querySnapshot = await getDocs(q);
-  return querySnapshot;
+  return await getDocs(q);
 }
 
 export default async function Home() {
