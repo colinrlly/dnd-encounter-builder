@@ -15,15 +15,13 @@ export default async function Home() {
     <main>
       <h1>Encounters</h1>
       <Link href='/encounter-builder'>
-        <span>
-          New
-        </span>
+        <button className="btn btn-primary">New</button>
       </Link>
       <ul role="list">
         {encounters.docs.map((doc) => (
           <Link href={`/encounters/${doc.id}`}>
             <li key={doc.id}>
-              <button>{doc.data().name}</button>
+              <button className="btn">{doc.data().name}</button>
             </li>
           </Link>
         ))}
