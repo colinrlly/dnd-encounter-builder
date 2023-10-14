@@ -1,23 +1,41 @@
+'use client'
+
 import { Monster } from "@/types/open5e";
 import { OPEN5E_API_URL } from "@/constants";
+import { useState, useEffect } from "react";
 
-async function getMonsters() {
-  const res = await fetch(`${OPEN5E_API_URL}/monsters/?limit=10`);
-  const data = await res.json();
-  return data.results;
-}
+export default function EncounterBuilder() {
+  const [monsters, setMonsters] = useState<Monster[]>([]);
+  const [availableMonsters, setAvailableMonsters] = useState<Monster[]>([]);
 
-export default async function EncounterBuilder() {
-  const monsters = await getMonsters();
+  useEffect(() => {
+    fetch(`${OPEN5E_API_URL}/monsters`)
+      .then(res => res.json())
+      .then(data => setAvailableMonsters(data.results));
+  }, []);
 
   return (
     <main>
       <h1>Monsters</h1>
-      {monsters.map((monster: Monster) => (
-        <div key={monster.slug}>
-          <p>{monster.name}</p>
-        </div>
-      ))}
+      <div>
+        <ul>
+          {availableMonsters.map((monster: Monster) => (
+            <li
+              key={monster.slug}
+              onClick={() => setMonsters([...monsters, monster])}>
+
+              <button>{monster.name}</button>
+            </li>
+          ))}
+        </ul>
+        <ul>
+          {monsters.map((monster: Monster) => (
+            <li key={monster.slug}>
+              <p>{monster.name}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
     </main>
   )
 }
