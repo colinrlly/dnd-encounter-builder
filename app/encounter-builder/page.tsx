@@ -1,9 +1,9 @@
 "use client";
 
 import { Monster } from "@/types/open5e";
-import { OPEN5E_API_URL } from "@/constants";
 import { useState, useEffect } from "react";
-import { saveEncounter } from "@/api";
+import { saveEncounter, getAvailableMonsters } from "@/api";
+import { AvailableMonsters } from "@/components";
 
 export default function EncounterBuilder() {
   const [monsters, setMonsters] = useState<Monster[]>([]);
@@ -11,9 +11,7 @@ export default function EncounterBuilder() {
   const [encounterName, setEncounterName] = useState<string>("");
 
   useEffect(() => {
-    fetch(`${OPEN5E_API_URL}/monsters`)
-      .then((res) => res.json())
-      .then((data) => setAvailableMonsters(data.results));
+    getAvailableMonsters(setAvailableMonsters);
   }, []);
 
   return (
@@ -41,6 +39,7 @@ export default function EncounterBuilder() {
       <div className="flex w-full gap-10">
         <div className="basis-1/2">
           <h2>Available Monsters</h2>
+          <AvailableMonsters />
           {availableMonsters.map((monster: Monster) => (
             <button
               className="btn m-1"
