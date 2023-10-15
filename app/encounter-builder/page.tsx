@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { Monster } from "@/types/open5e";
 import { OPEN5E_API_URL } from "@/constants";
@@ -11,19 +11,22 @@ function saveEncounter(name: string, monsters: Monster[]) {
 export default function EncounterBuilder() {
   const [monsters, setMonsters] = useState<Monster[]>([]);
   const [availableMonsters, setAvailableMonsters] = useState<Monster[]>([]);
-  const [encounterName, setEncounterName] = useState<string>('');
+  const [encounterName, setEncounterName] = useState<string>("");
 
   useEffect(() => {
     fetch(`${OPEN5E_API_URL}/monsters`)
-      .then(res => res.json())
-      .then(data => setAvailableMonsters(data.results));
+      .then((res) => res.json())
+      .then((data) => setAvailableMonsters(data.results));
   }, []);
 
   return (
     <div className="prose max-w-none">
       <h1>Monsters</h1>
 
-      <button className="btn btn-primary" onClick={() => saveEncounter(encounterName, monsters)}>
+      <button
+        className="btn btn-primary"
+        onClick={() => saveEncounter(encounterName, monsters)}
+      >
         Save Encounter
       </button>
 
@@ -35,7 +38,8 @@ export default function EncounterBuilder() {
         placeholder="epic tpk encounter"
         className="input input-bordered"
         value={encounterName}
-        onChange={e => setEncounterName(e.target.value)} />
+        onChange={(e) => setEncounterName(e.target.value)}
+      />
 
       <div className="flex w-full gap-10">
         <div className="basis-1/2">
@@ -56,7 +60,9 @@ export default function EncounterBuilder() {
           {monsters.map((monster: Monster) => (
             <button
               className="btn m-1"
-              onClick={() => setMonsters(monsters.filter(m => m.slug !== monster.slug))}
+              onClick={() =>
+                setMonsters(monsters.filter((m) => m.slug !== monster.slug))
+              }
               key={monster.slug}
             >
               {monster.name}
@@ -65,5 +71,5 @@ export default function EncounterBuilder() {
         </div>
       </div>
     </div>
-  )
+  );
 }

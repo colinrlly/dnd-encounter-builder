@@ -1,6 +1,6 @@
 import { db } from "@/firebase/config";
 import { collection, getDocs, query } from "firebase/firestore";
-import Link from 'next/link';
+import Link from "next/link";
 
 async function getEncounters() {
   const encountersRef = collection(db, "encounters");
@@ -14,7 +14,7 @@ export default async function Home() {
   return (
     <main>
       <h1>Encounters</h1>
-      <Link href='/encounter-builder'>
+      <Link href="/encounter-builder">
         <button className="btn btn-primary">New</button>
       </Link>
       <ul role="list">
@@ -27,5 +27,5 @@ export default async function Home() {
         ))}
       </ul>
     </main>
-  )
+  );
 }

@@ -46,10 +46,12 @@ export type Monster = {
     damage_dice?: string;
     damage_bonus?: number;
   }[];
-  reactions: null | {
-    name: string;
-    desc: string;
-  }[];
+  reactions:
+    | null
+    | {
+        name: string;
+        desc: string;
+      }[];
   legendary_desc: string;
   legendary_actions: {
     name: string;
