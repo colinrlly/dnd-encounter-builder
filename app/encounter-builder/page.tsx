@@ -1,22 +1,21 @@
 "use client";
 
 import { Monster } from "@/types/open5e";
-import { useState, useEffect } from "react";
-import { saveEncounter, getAvailableMonsters } from "@/api";
+import { useState } from "react";
+import { saveEncounter } from "@/api";
 import { AvailableMonsters } from "@/components";
 
 export default function EncounterBuilder() {
   const [monsters, setMonsters] = useState<Monster[]>([]);
-  const [availableMonsters, setAvailableMonsters] = useState<Monster[]>([]);
   const [encounterName, setEncounterName] = useState<string>("");
 
-  useEffect(() => {
-    getAvailableMonsters(setAvailableMonsters);
-  }, []);
+  function addMonster(monster: Monster) {
+    setMonsters([...monsters, monster]);
+  }
 
   return (
     <div className="prose max-w-none">
-      <h1>Monsters</h1>
+      <h1>Encounter Builder</h1>
 
       <button
         className="btn btn-primary"
@@ -37,21 +36,12 @@ export default function EncounterBuilder() {
       />
 
       <div className="flex w-full gap-10">
-        <div className="basis-1/2">
+        <div className="basis-3/4">
           <h2>Available Monsters</h2>
-          <AvailableMonsters />
-          {availableMonsters.map((monster: Monster) => (
-            <button
-              className="btn m-1"
-              onClick={() => setMonsters([...monsters, monster])}
-              key={monster.slug}
-            >
-              {monster.name}
-            </button>
-          ))}
+          <AvailableMonsters addCallback={addMonster} />
         </div>
 
-        <div className="basis-1/2">
+        <div className="basis-1/4">
           <h2>Selected Monsters</h2>
           {monsters.map((monster: Monster) => (
             <button
