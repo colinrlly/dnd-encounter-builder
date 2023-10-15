@@ -1,16 +1,5 @@
 import Link from "next/link";
-import { supabase } from "@/supabase/config";
-
-async function getEncounters() {
-  const { data, error } = await supabase.from("encounters").select("*");
-
-  if (error) {
-    console.error(error);
-    return;
-  }
-
-  return data;
-}
+import { getEncounters } from "@/api";
 
 export default async function Home() {
   const encounters = await getEncounters();
