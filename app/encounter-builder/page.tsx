@@ -4,9 +4,14 @@ import { Monster } from "@/types/open5e";
 import { OPEN5E_API_URL } from "@/constants";
 import { useState, useEffect } from "react";
 
+function saveEncounter(name: string, monsters: Monster[]) {
+  console.log(name, monsters);
+}
+
 export default function EncounterBuilder() {
   const [monsters, setMonsters] = useState<Monster[]>([]);
   const [availableMonsters, setAvailableMonsters] = useState<Monster[]>([]);
+  const [encounterName, setEncounterName] = useState<string>('');
 
   useEffect(() => {
     fetch(`${OPEN5E_API_URL}/monsters`)
@@ -18,10 +23,19 @@ export default function EncounterBuilder() {
     <div className="prose max-w-none">
       <h1>Monsters</h1>
 
+      <button className="btn btn-primary" onClick={() => saveEncounter(encounterName, monsters)}>
+        Save Encounter
+      </button>
+
       <label className="label">
         <h2 className="label-text">Encounter Name</h2>
       </label>
-      <input type="text" placeholder="epic tpk encounter" className="input input-bordered" />
+      <input
+        type="text"
+        placeholder="epic tpk encounter"
+        className="input input-bordered"
+        value={encounterName}
+        onChange={e => setEncounterName(e.target.value)} />
 
       <div className="flex w-full gap-10">
         <div className="basis-1/2">

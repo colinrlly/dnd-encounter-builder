@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" data-theme="retro">
+    <html lang="en" data-theme="halloween">
       <body className={`${inter.className} p-8`}>{children}</body>
     </html>
   )
