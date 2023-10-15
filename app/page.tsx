@@ -1,11 +1,15 @@
-import { db } from "@/firebase/config";
-import { collection, getDocs, query } from "firebase/firestore";
 import Link from "next/link";
+import { supabase } from "@/supabase/config";
 
 async function getEncounters() {
-  const encountersRef = collection(db, "encounters");
-  const q = query(encountersRef);
-  return await getDocs(q);
+  const { data, error } = await supabase.from("encounters").select("*");
+
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  return data;
 }
 
 export default async function Home() {
@@ -18,10 +22,10 @@ export default async function Home() {
         <button className="btn btn-primary">New</button>
       </Link>
       <ul role="list">
-        {encounters.docs.map((doc) => (
-          <Link href={`/encounters/${doc.id}`}>
-            <li key={doc.id}>
-              <button className="btn">{doc.data().name}</button>
+        {encounters?.map((e) => (
+          <Link href={`/encounters/${e.id}`} key={e.id}>
+            <li key={e.id}>
+              <button className="btn">{e.name}</button>
             </li>
           </Link>
         ))}

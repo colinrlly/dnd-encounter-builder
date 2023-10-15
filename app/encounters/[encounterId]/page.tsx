@@ -1,9 +1,17 @@
-import { db } from "@/firebase/config";
-import { getDoc, doc } from "firebase/firestore";
+import { supabase } from "@/supabase/config";
 
 async function getEncounter(encounterId: string) {
-  const docRef = doc(db, "encounters", encounterId);
-  return await getDoc(docRef);
+  const { data, error } = await supabase
+    .from("encounters")
+    .select("*")
+    .eq("id", encounterId);
+
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  return data[0];
 }
 
 export default async function Encounter({
@@ -11,8 +19,7 @@ export default async function Encounter({
 }: {
   params: { encounterId: string };
 }) {
-  const encounterSnap = await getEncounter(params.encounterId);
-  const encounter = encounterSnap.exists() ? encounterSnap.data() : null;
+  const encounter = await getEncounter(params.encounterId);
 
   return encounter ? (
     <main>

@@ -3,9 +3,20 @@
 import { Monster } from "@/types/open5e";
 import { OPEN5E_API_URL } from "@/constants";
 import { useState, useEffect } from "react";
+import { supabase } from "@/supabase/config";
 
-function saveEncounter(name: string, monsters: Monster[]) {
-  console.log(name, monsters);
+async function saveEncounter(name: string, monsters: Monster[]) {
+  const encounter = {
+    name,
+    monsters: monsters.map((m) => m.slug),
+  };
+
+  const { error } = await supabase.from("encounters").insert(encounter);
+
+  if (error) {
+    console.error(error);
+    return;
+  }
 }
 
 export default function EncounterBuilder() {
