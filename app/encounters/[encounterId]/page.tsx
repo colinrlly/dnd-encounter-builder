@@ -1,4 +1,5 @@
 import { getEncounter } from "@/api";
+import { UnhydratedSelectedMonster } from "@/types";
 
 export default async function Encounter({
   params,
@@ -10,8 +11,11 @@ export default async function Encounter({
   return encounter ? (
     <main>
       <h1>{encounter.name}</h1>
-      {encounter.monsters.map((monsterSlug: string) => (
-        <p key={monsterSlug}>{monsterSlug}</p>
+      {encounter.monsters.map((monster: UnhydratedSelectedMonster) => (
+        <div key={monster.slug}>
+          <p>{monster.slug}</p>
+          <p>{monster.count}</p>
+        </div>
       ))}
     </main>
   ) : (
