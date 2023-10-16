@@ -1,6 +1,7 @@
 import { getEncounter, hydrateSelectedMonsters } from "@/api";
 import { SelectedMonster } from "@/types";
 import { SelectedMonsters } from "./components";
+import Link from "next/link";
 
 export default async function Encounter({
   params,
@@ -20,6 +21,9 @@ export default async function Encounter({
   return encounter ? (
     <main className="prose">
       <h1>{encounter.name}</h1>
+      <Link href={`/encounter-builder/${encounter.id}`}>
+        <button className="btn btn-primary">edit encounter</button>
+      </Link>
       <SelectedMonsters monsters={hydratedSelectedMonsters} />
     </main>
   ) : (
