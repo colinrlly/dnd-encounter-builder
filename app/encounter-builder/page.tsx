@@ -4,8 +4,7 @@ import { SelectedMonster } from "@/types";
 import { Monster } from "@/types/open5e";
 import { useState } from "react";
 import { saveEncounter } from "@/api";
-import { AvailableMonsters } from "@/components";
-import { SelectedMonsters } from "./components";
+import { SelectedMonsters, AvailableMonsters } from "./components";
 
 export default function EncounterBuilder() {
   const [monsters, setMonsters] = useState<SelectedMonster[]>([]);

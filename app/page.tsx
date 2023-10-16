@@ -1,24 +1,42 @@
 import Link from "next/link";
 import { getEncounters } from "@/api";
+import Image from "next/image";
 
 export default async function Home() {
   const encounters = await getEncounters();
 
   return (
-    <main>
+    <main className="prose max-w-none">
       <h1>Encounters</h1>
       <Link href="/encounter-builder">
-        <button className="btn btn-primary">New</button>
+        <button className="btn btn-primary">new encounter</button>
       </Link>
-      <ul role="list">
+      <div className="not-prose grid [grid-template-columns:repeat(auto-fill,minmax(400px,1fr))] justify-items-center gap-5 mt-10 lg:gap-12">
         {encounters?.map((e) => (
-          <Link href={`/encounters/${e.id}`} key={e.id}>
-            <li key={e.id}>
-              <button className="btn">{e.name}</button>
-            </li>
-          </Link>
+          <div
+            key={e.id}
+            className="card card-compact w-96 shadow-xl justify-self-auto"
+          >
+            <figure className="m-0">
+              <Image
+                src={`https://picsum.photos/seed/${Math.random()}/400/200`}
+                alt="Shoes"
+                width={400}
+                height={200}
+              />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title">{e.name}</h2>
+              <p>This is a super cool encounter description</p>
+              <div className="card-actions justify-end">
+                <Link href={`/encounters/${e.id}`}>
+                  <button className="btn">view encounter</button>
+                </Link>
+              </div>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </main>
   );
 }
