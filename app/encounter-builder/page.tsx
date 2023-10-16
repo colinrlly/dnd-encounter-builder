@@ -4,8 +4,7 @@ import { SelectedMonster } from "@/types";
 import { Monster } from "@/types/open5e";
 import { useState } from "react";
 import { saveEncounter } from "@/api";
-import { AvailableMonsters } from "./components";
-import { SelectedMonsters } from "@/components";
+import { AvailableMonsters, SelectedMonsters } from "./components";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 

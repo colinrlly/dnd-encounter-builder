@@ -1,5 +1,6 @@
-import { getEncounter } from "@/api";
-import { UnhydratedSelectedMonster } from "@/types";
+import { getEncounter, hydrateSelectedMonsters } from "@/api";
+import { SelectedMonster } from "@/types";
+import { SelectedMonsters } from "./components";
 
 export default async function Encounter({
   params,
@@ -8,15 +9,18 @@ export default async function Encounter({
 }) {
   const encounter = await getEncounter(params.encounterId);
 
+  let hydratedSelectedMonsters = [] as SelectedMonster[];
+
+  if (encounter) {
+    hydratedSelectedMonsters = await hydrateSelectedMonsters(
+      encounter.monsters
+    );
+  }
+
   return encounter ? (
     <main className="prose">
       <h1>{encounter.name}</h1>
-      {encounter.monsters.map((monster: UnhydratedSelectedMonster) => (
-        <div key={monster.slug}>
-          <p>{monster.slug}</p>
-          <p>{monster.count}</p>
-        </div>
-      ))}
+      <SelectedMonsters monsters={hydratedSelectedMonsters} />
     </main>
   ) : (
     <main>
