@@ -4,7 +4,8 @@ import { toast } from "react-toastify";
 
 export default async function saveEncounter(
   name: string,
-  monsters: SelectedMonster[]
+  monsters: SelectedMonster[],
+  onSuccess: () => void
 ) {
   if (name === "") {
     toast.error("Please enter a name for the encounter");
@@ -25,4 +26,6 @@ export default async function saveEncounter(
     console.error(error);
     return;
   }
+
+  onSuccess();
 }

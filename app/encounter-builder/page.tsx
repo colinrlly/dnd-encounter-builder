@@ -5,10 +5,19 @@ import { Monster } from "@/types/open5e";
 import { useState } from "react";
 import { saveEncounter } from "@/api";
 import { SelectedMonsters, AvailableMonsters } from "./components";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export default function EncounterBuilder() {
   const [monsters, setMonsters] = useState<SelectedMonster[]>([]);
   const [encounterName, setEncounterName] = useState<string>("");
+
+  const router = useRouter();
+
+  function onSaveSuccess() {
+    router.push("/");
+    toast.success("Encounter saved!");
+  }
 
   function addMonster(monster: Monster) {
     const existingMonster = monsters.find((m) => m.data.slug === monster.slug);
@@ -32,7 +41,7 @@ export default function EncounterBuilder() {
 
       <button
         className="btn btn-primary"
-        onClick={() => saveEncounter(encounterName, monsters)}
+        onClick={() => saveEncounter(encounterName, monsters, onSaveSuccess)}
       >
         Save Encounter
       </button>
