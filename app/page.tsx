@@ -2,6 +2,8 @@ import Link from "next/link";
 import { getEncounters } from "@/api";
 import Image from "next/image";
 
+export const revalidate = 0;
+
 export default async function Home() {
   const encounters = await getEncounters();
 

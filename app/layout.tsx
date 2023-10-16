@@ -16,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" data-theme="retro">
+    <html lang="en" data-theme="lemonade">
       <body className={`${inter.className} p-8`}>
         <ToastProvider>{children}</ToastProvider>
       </body>
