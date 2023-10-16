@@ -53,6 +53,8 @@ The main idea I have to differentiate this encounter builder from the one on DND
 
 ## Initial Database Schema Plan (Firestore noSQL)
 
+SEE THE DATABASE DOCUMENTATION FOR THE CURRENT SCHEMA
+
 ```json
 {
   "encounters": {

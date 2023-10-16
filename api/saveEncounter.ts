@@ -1,9 +1,16 @@
 import { supabase } from "@/supabase/config";
+import { SelectedMonster } from "@/types";
 
-export default async function saveEncounter(name: string, monsters: Monster[]) {
+export default async function saveEncounter(
+  name: string,
+  monsters: SelectedMonster[]
+) {
   const encounter = {
     name,
-    monsters: monsters.map((m) => m.slug),
+    monsters: monsters.map((monster) => ({
+      slug: monster.data.slug,
+      count: monster.count,
+    })),
   };
 
   const { error } = await supabase.from("encounters").insert(encounter);

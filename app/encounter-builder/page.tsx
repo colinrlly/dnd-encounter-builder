@@ -1,16 +1,30 @@
 "use client";
 
+import { SelectedMonster } from "@/types";
 import { Monster } from "@/types/open5e";
 import { useState } from "react";
 import { saveEncounter } from "@/api";
 import { AvailableMonsters } from "@/components";
+import { SelectedMonsters } from "./components";
 
 export default function EncounterBuilder() {
-  const [monsters, setMonsters] = useState<Monster[]>([]);
+  const [monsters, setMonsters] = useState<SelectedMonster[]>([]);
   const [encounterName, setEncounterName] = useState<string>("");
 
   function addMonster(monster: Monster) {
-    setMonsters([...monsters, monster]);
+    const existingMonster = monsters.find((m) => m.data.slug === monster.slug);
+
+    if (existingMonster) {
+      const newMonsters = monsters.filter((m) => m.data.slug !== monster.slug);
+
+      setMonsters([
+        ...newMonsters,
+        { ...existingMonster, count: existingMonster.count + 1 },
+      ]);
+      return;
+    }
+
+    setMonsters([...monsters, { count: 1, data: monster }]);
   }
 
   return (
@@ -42,18 +56,7 @@ export default function EncounterBuilder() {
         </div>
 
         <div className="basis-1/4">
-          <h2>Selected Monsters</h2>
-          {monsters.map((monster: Monster) => (
-            <button
-              className="btn m-1"
-              onClick={() =>
-                setMonsters(monsters.filter((m) => m.slug !== monster.slug))
-              }
-              key={monster.slug}
-            >
-              {monster.name}
-            </button>
-          ))}
+          <SelectedMonsters monsters={monsters} setMonsters={setMonsters} />
         </div>
       </div>
     </div>
