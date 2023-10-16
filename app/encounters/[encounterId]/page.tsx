@@ -9,7 +9,7 @@ export default async function Encounter({
   const encounter = await getEncounter(params.encounterId);
 
   return encounter ? (
-    <main>
+    <main className="prose">
       <h1>{encounter.name}</h1>
       {encounter.monsters.map((monster: UnhydratedSelectedMonster) => (
         <div key={monster.slug}>

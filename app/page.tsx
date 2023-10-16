@@ -13,11 +13,8 @@ export default async function Home() {
       </Link>
       <div className="not-prose grid [grid-template-columns:repeat(auto-fill,minmax(400px,1fr))] justify-items-center gap-5 mt-10 lg:gap-12">
         {encounters?.map((e) => (
-          <div
-            key={e.id}
-            className="card card-compact w-96 shadow-xl justify-self-auto"
-          >
-            <figure className="m-0">
+          <div key={e.id} className="card w-96 shadow-xl justify-self-auto">
+            <figure>
               <Image
                 src={`https://picsum.photos/seed/${Math.random()}/400/200`}
                 alt="Shoes"
