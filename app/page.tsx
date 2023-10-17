@@ -21,15 +21,15 @@ export default function Home() {
       <Link href="/encounter-builder">
         <button className="btn btn-primary">new encounter</button>
       </Link>
-      <div className="not-prose grid [grid-template-columns:repeat(auto-fill,minmax(400px,1fr))] justify-items-center gap-5 mt-10 lg:gap-12">
+      <div className="not-prose grid [grid-template-columns:repeat(auto-fill,minmax(w-full,1fr))] sm:[grid-template-columns:repeat(auto-fill,minmax(400px,1fr))] justify-items-center gap-5 mt-10 lg:gap-12">
         {encounters?.map((e) => (
-          <div key={e.id} className="card w-96 shadow-xl justify-self-auto">
+          <div key={e.id} className="card sm:w-96 shadow-xl justify-self-auto">
             <figure>
               <Image
-                src={`https://picsum.photos/seed/${Math.random()}/400/200`}
+                src={`https://picsum.photos/seed/${Math.random()}/600/300`}
                 alt="Shoes"
-                width={400}
-                height={200}
+                width={600}
+                height={300}
               />
             </figure>
             <div className="card-body">
