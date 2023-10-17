@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <main className="prose max-w-none">
       <h1>Encounters</h1>
-      <Link href="/encounter-builder">
+      <Link href="/encounter-builder" className="no-underline">
         <button className="btn btn-primary no-underline">new encounter</button>
       </Link>
       <div className="not-prose grid [grid-template-columns:repeat(auto-fill,minmax(w-full,1fr))] sm:[grid-template-columns:repeat(auto-fill,minmax(400px,1fr))] justify-items-center gap-5 mt-10 lg:gap-12">
