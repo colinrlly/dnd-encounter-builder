@@ -25,14 +25,18 @@ export default async function saveEncounter(
     const { error } = await supabase
       .from("encounters")
       .update(encounter)
-      .eq("id", id);
+      .eq("id", id)
+      .select();
 
     if (error) {
       console.error(error);
       return;
     }
   } else {
-    const { error } = await supabase.from("encounters").insert(encounter);
+    const { error } = await supabase
+      .from("encounters")
+      .insert(encounter)
+      .select();
 
     if (error) {
       console.error(error);

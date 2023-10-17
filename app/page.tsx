@@ -1,11 +1,19 @@
+"use client";
+
 import Link from "next/link";
 import { getEncounters } from "@/api";
 import Image from "next/image";
+import { useState, useEffect } from "react";
+import { Encounter } from "@/types";
 
-export const revalidate = 0;
+export default function Home() {
+  const [encounters, setEncounters] = useState([] as Encounter[]);
 
-export default async function Home() {
-  const encounters = await getEncounters();
+  useEffect(() => {
+    getEncounters().then((encounters) => {
+      setEncounters(encounters || ([] as Encounter[]));
+    });
+  }, []);
 
   return (
     <main className="prose max-w-none">
