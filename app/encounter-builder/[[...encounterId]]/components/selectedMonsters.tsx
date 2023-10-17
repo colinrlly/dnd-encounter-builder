@@ -7,9 +7,11 @@ export default function SelectedMonsters({
   monsters: SelectedMonster[];
   setMonsters: (monsters: SelectedMonster[]) => void;
 }) {
+  const totalMonsters = monsters.reduce((acc, m) => acc + m.count, 0);
+
   return (
     <>
-      <h2>Selected Monsters</h2>
+      <h2>{totalMonsters} Selected Monsters</h2>
       {monsters.map((monster) => (
         <div
           key={monster.data.slug}
