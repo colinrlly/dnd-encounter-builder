@@ -30,7 +30,7 @@ export default function AvailableMonsters({
             <th>Name</th>
             <th>CR</th>
             <th>Hit Points</th>
-            <th>Size</th>
+            <th className="hidden sm:block">Size</th>
             <th></th>
           </tr>
         </thead>
@@ -40,7 +40,7 @@ export default function AvailableMonsters({
               <td className="font-bold">{m.name}</td>
               <td>{m.cr}</td>
               <td>{m.hit_points}</td>
-              <td>{m.size}</td>
+              <td className="hidden sm:block">{m.size}</td>
               <td>
                 <button className="btn" onClick={() => addCallback(m)}>
                   ADD

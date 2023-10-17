@@ -74,13 +74,13 @@ export default function EncounterBuilder({
         onChange={(e) => setEncounterName(e.target.value)}
       />
 
-      <div className="flex w-full gap-10">
-        <div className="basis-3/4">
+      <div className="flex w-full flex-col md:flex-row md:gap-10">
+        <div className="md:basis-3/4">
           <h2>Available Monsters</h2>
           <AvailableMonsters addCallback={addMonster} />
         </div>
 
-        <div className="basis-1/4">
+        <div className="order-first w-52 md:order-last md:basis-1/4">
           <SelectedMonsters monsters={monsters} setMonsters={setMonsters} />
         </div>
       </div>
