@@ -5,8 +5,6 @@ import { OPEN5E_API_URL } from "@/constants";
 export default async function hydrateSelectedMonsters(
   selectedMonsters: UnhydratedSelectedMonster[]
 ): Promise<SelectedMonster[]> {
-  console.log(selectedMonsters);
-
   const slugs = selectedMonsters
     .map((m: UnhydratedSelectedMonster) => m.slug)
     .join(",");
@@ -26,8 +24,6 @@ export default async function hydrateSelectedMonsters(
       };
     }
   );
-
-  console.log(hydratedSelectedMonsters);
 
   return new Promise((resolve) => {
     resolve(hydratedSelectedMonsters);

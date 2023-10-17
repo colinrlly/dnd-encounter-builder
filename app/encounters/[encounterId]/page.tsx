@@ -1,30 +1,23 @@
-import { getEncounter, hydrateSelectedMonsters } from "@/api";
-import { SelectedMonster } from "@/types";
+import { getEncounter } from "@/api";
 import { SelectedMonsters } from "./components";
 import Link from "next/link";
+
+export const revalidate = 0;
 
 export default async function Encounter({
   params,
 }: {
   params: { encounterId: string };
 }) {
-  const encounter = await getEncounter(params.encounterId);
+  const hydratedEncounter = await getEncounter(params.encounterId);
 
-  let hydratedSelectedMonsters = [] as SelectedMonster[];
-
-  if (encounter) {
-    hydratedSelectedMonsters = await hydrateSelectedMonsters(
-      encounter.monsters
-    );
-  }
-
-  return encounter ? (
+  return hydratedEncounter ? (
     <main className="prose">
-      <h1>{encounter.name}</h1>
-      <Link href={`/encounter-builder/${encounter.id}`}>
+      <h1>{hydratedEncounter.name}</h1>
+      <Link href={`/encounter-builder/${hydratedEncounter.id}`}>
         <button className="btn btn-primary">edit encounter</button>
       </Link>
-      <SelectedMonsters monsters={hydratedSelectedMonsters} />
+      <SelectedMonsters monsters={hydratedEncounter.monsters} />
     </main>
   ) : (
     <main>

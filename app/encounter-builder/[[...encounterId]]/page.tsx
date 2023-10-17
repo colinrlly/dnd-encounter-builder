@@ -2,17 +2,32 @@
 
 import { SelectedMonster } from "@/types";
 import { Monster } from "@/types/open5e";
-import { useState } from "react";
-import { saveEncounter } from "@/api";
+import { useState, useEffect } from "react";
+import { saveEncounter, getEncounter } from "@/api";
 import { AvailableMonsters, SelectedMonsters } from "./components";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
-export default function EncounterBuilder() {
+export default function EncounterBuilder({
+  params,
+}: {
+  params: { encounterId?: string };
+}) {
   const [monsters, setMonsters] = useState<SelectedMonster[]>([]);
   const [encounterName, setEncounterName] = useState<string>("");
+  const [encounterId, setEncounterId] = useState<string>("");
 
   const router = useRouter();
+
+  useEffect(() => {
+    if (params.encounterId) {
+      getEncounter(params.encounterId).then((encounter) => {
+        setEncounterName(encounter.name);
+        setMonsters(encounter.monsters);
+        setEncounterId(encounter.id);
+      });
+    }
+  }, [params.encounterId]);
 
   function onSaveSuccess() {
     router.push("/");
@@ -41,7 +56,9 @@ export default function EncounterBuilder() {
 
       <button
         className="btn btn-primary"
-        onClick={() => saveEncounter(encounterName, monsters, onSaveSuccess)}
+        onClick={() =>
+          saveEncounter(encounterName, monsters, onSaveSuccess, encounterId)
+        }
       >
         Save Encounter
       </button>
