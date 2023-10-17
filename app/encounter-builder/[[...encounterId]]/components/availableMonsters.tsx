@@ -10,37 +10,46 @@ export default function AvailableMonsters({
   addCallback: (monster: Monster) => void;
 }) {
   const [availableMonsters, setAvailableMonsters] = useState<Monster[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   useEffect(() => {
-    getAvailableMonsters(setAvailableMonsters);
-  }, []);
+    getAvailableMonsters(searchTerm, setAvailableMonsters);
+  }, [searchTerm]);
 
   return (
-    <table className="table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>CR</th>
-          <th>Hit Points</th>
-          <th>Size</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {availableMonsters.map((m: Monster) => (
-          <tr key={m.slug}>
-            <td className="font-bold">{m.name}</td>
-            <td>{m.cr}</td>
-            <td>{m.hit_points}</td>
-            <td>{m.size}</td>
-            <td>
-              <button className="btn" onClick={() => addCallback(m)}>
-                ADD
-              </button>
-            </td>
+    <>
+      <input
+        type="text"
+        className="input input-bordered"
+        placeholder="Search..."
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>CR</th>
+            <th>Hit Points</th>
+            <th>Size</th>
+            <th></th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {availableMonsters?.map((m: Monster) => (
+            <tr key={m.slug}>
+              <td className="font-bold">{m.name}</td>
+              <td>{m.cr}</td>
+              <td>{m.hit_points}</td>
+              <td>{m.size}</td>
+              <td>
+                <button className="btn" onClick={() => addCallback(m)}>
+                  ADD
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
   );
 }
