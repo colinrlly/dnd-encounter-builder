@@ -15,7 +15,7 @@ export default async function Encounter({
     <main className="prose">
       <h1>{hydratedEncounter.name}</h1>
       <Link href={`/encounter-builder/${hydratedEncounter.id}`}>
-        <button className="btn btn-primary">edit encounter</button>
+        <button className="btn btn-primary no-underline">edit encounter</button>
       </Link>
       <SelectedMonsters monsters={hydratedEncounter.monsters} />
     </main>

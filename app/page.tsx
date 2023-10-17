@@ -19,7 +19,7 @@ export default function Home() {
     <main className="prose max-w-none">
       <h1>Encounters</h1>
       <Link href="/encounter-builder">
-        <button className="btn btn-primary">new encounter</button>
+        <button className="btn btn-primary no-underline">new encounter</button>
       </Link>
       <div className="not-prose grid [grid-template-columns:repeat(auto-fill,minmax(w-full,1fr))] sm:[grid-template-columns:repeat(auto-fill,minmax(400px,1fr))] justify-items-center gap-5 mt-10 lg:gap-12">
         {encounters?.map((e) => (
