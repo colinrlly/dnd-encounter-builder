@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a build of a Dungeons & Dragons encounter builder inspired by the DND [Beyond Encounter Builder](https://www.dndbeyond.com/encounter-builder).
 
-## Getting Started
+[dnd-encounter-builder-ed78.vercel.app](dnd-encounter-builder-ed78.vercel.app)
 
-First, run the development server:
+# Technologies
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+The frontend of this app was built using
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [NextJS 13](https://nextjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Daisy UI](https://daisyui.com/)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The backend of this app was built using
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- [Supabase](https://supabase.com/)
+- [Postgres](https://supabase.com/docs/guides/database/overview)
+- [Open5e API](https://open5e.com/)
 
-## Learn More
+# Database
 
-To learn more about Next.js, take a look at the following resources:
+## Table: encounters
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<b>id</b>: (uuid), id of the encounter <br>
+<b>created_at</b>: (timestamptz), Time the row was created at <br>
+<b>monsters</b>: (json[]), List of monsters and their count `{slug: string, count: number}[]` <br>
+<b>name</b>: (varchar), Name of the encounter <br>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Dataflow Architecture
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+When the encounters are queried from the database they are <i>hydrated</i> using the open5e monster API. This way we only store the slug of the monster in the database but then are able to use the entire monster data in the app. This cuts down on duplicating data from the open5e API into our own database.
