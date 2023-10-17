@@ -34,7 +34,7 @@ export default function Home() {
             </figure>
             <div className="card-body">
               <h2 className="card-title">{e.name}</h2>
-              <p>This is a super cool encounter description</p>
+              <p>You get a sense there is danger afoot</p>
               <div className="card-actions justify-end">
                 <Link href={`/encounters/${e.id}`}>
                   <button className="btn">view encounter</button>
